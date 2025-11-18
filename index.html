@@ -46,15 +46,14 @@
         /* ========== TEXT ELEMENTS - Replace with images ========== */
         .title {
             /* REPLACE: Main title "slay the fire dragon!" */
-            font-size: 80px;
-            font-weight: bold;
-            text-align: center;
+            background-image: url('title.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 800px;
+            height: 150px;
             margin-bottom: 100px;
-            color: #2c3e50;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
-            /* To replace with image, add: background-image: url('title.png'); */
-            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+            text-indent: -9999px;
         }
 
         .mission-title {
@@ -65,8 +64,30 @@
             top: 50px;
             left: 60px;
             color: #2c3e50;
-            /* To replace with image, add: background-image: url('mission-title.png'); */
-            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+
+        .mission-title.mission-1 {
+            background-image: url('mission 1.png');
+            width: 600px;
+            height: 100px;
+            text-indent: -9999px;
+        }
+
+        .mission-title.mission-2 {
+            background-image: url('mission 2.png');
+            width: 600px;
+            height: 100px;
+            text-indent: -9999px;
+        }
+
+        .mission-title.mission-3 {
+            background-image: url('mission 3.png');
+            width: 400px;
+            height: 100px;
+            text-indent: -9999px;
         }
 
         /* ========== BUTTONS - Replace with images ========== */
@@ -81,14 +102,38 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            /* To replace with image, add: background-image: url('button.png'); */
-            /* background-size: contain; text-indent: -9999px; */
+        }
+
+        button.start-btn {
+            background-image: url('start button.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            width: 250px;
+            height: 100px;
+            padding: 0;
+            text-indent: -9999px;
+        }
+
+        button.start-fight-btn {
+            background-image: url('start fight button.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            width: 400px;
+            height: 100px;
+            padding: 0;
+            text-indent: -9999px;
         }
 
         button:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            background: #ecf0f1;
         }
 
         button:active {
@@ -130,8 +175,23 @@
             font-size: 48px;
             font-weight: bold;
             color: #2c3e50;
-            /* To replace with image, add: background-image: url('label.png'); */
-            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .choice-label.melee-label {
+            background-image: url('melee class.png');
+            width: 200px;
+            height: 80px;
+            text-indent: -9999px;
+        }
+
+        .choice-label.ranger-label {
+            background-image: url('ranger class.png');
+            width: 200px;
+            height: 80px;
+            text-indent: -9999px;
         }
 
         /* ========== STICK FIGURE - Replace with your character sprite ========== */
@@ -141,208 +201,133 @@
             left: 300px;
             top: 50%;
             transform: translateY(-50%);
-            width: 85px;
-            height: 218px;
-            /* To replace with image, add: background-image: url('character.png'); */
-            /* background-size: contain; background-repeat: no-repeat; */
+            width: 150px;
+            height: 150px;
+            background-image: url('guy.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .stick-head {
-            width: 60px;
-            height: 60px;
-            border: 5px solid black;
-            border-radius: 50%;
-            background: white;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .stick-body {
-            width: 5px;
-            height: 120px;
-            background: black;
-            margin: 0 auto;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .stick-arms {
-            width: 80px;
-            height: 5px;
-            background: black;
-            margin: -60px auto 0;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .stick-legs {
-            display: flex;
-            justify-content: space-between;
-            width: 60px;
-            margin: 0 auto;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .stick-leg {
-            width: 5px;
-            height: 100px;
-            background: black;
-            transform-origin: top;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .stick-leg.left {
-            transform: rotate(-20deg);
+            display: none;
         }
 
         .stick-leg.right {
-            transform: rotate(20deg);
+            display: none;
         }
 
         /* ========== WEAPON ICONS - Replace with your weapon sprites ========== */
         /* SWORD ICON */
         .sword-icon {
             /* REPLACE: Sword icon with your sword sprite */
-            width: 80px;
+            width: 150px;
             height: 180px;
             position: relative;
-            /* To replace with image, add: background-image: url('sword-icon.png'); */
-            /* background-size: contain; background-repeat: no-repeat; */
+            background-image: url('sword.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .sword-blade {
-            width: 20px;
-            height: 140px;
-            background: linear-gradient(to right, #c0c0c0, #e0e0e0);
-            margin: 0 auto;
-            border-radius: 3px 3px 0 0;
-            box-shadow: inset 2px 0 5px rgba(0,0,0,0.2);
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .sword-handle {
-            width: 50px;
-            height: 15px;
-            background: #8b4513;
-            margin: 0 auto;
-            border-radius: 3px;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .sword-guard {
-            width: 70px;
-            height: 8px;
-            background: #daa520;
-            margin: 5px auto;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         /* BOW ICON */
         .bow-icon {
             /* REPLACE: Bow icon with your bow sprite */
-            width: 120px;
+            width: 150px;
             height: 180px;
             position: relative;
-            /* To replace with image, add: background-image: url('bow-icon.png'); */
-            /* background-size: contain; background-repeat: no-repeat; */
+            background-image: url('bow.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .bow-curve {
-            width: 80px;
-            height: 150px;
-            border: 5px solid #8b4513;
-            border-right: none;
-            border-radius: 50% 0 0 50%;
-            margin: 0 auto;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .bow-string {
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            height: 130px;
-            width: 2px;
-            background: #666;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         /* MOP ICON */
         .mop-icon {
             /* REPLACE: Mop icon with your mop sprite */
-            width: 120px;
+            width: 150px;
             height: 200px;
             position: relative;
-            /* To replace with image, add: background-image: url('mop-icon.png'); */
-            /* background-size: contain; background-repeat: no-repeat; */
+            background-image: url('wet mop.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .mop-handle {
-            width: 8px;
-            height: 150px;
-            background: #8b4513;
-            margin: 0 auto;
-            border-radius: 4px;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .mop-head {
-            width: 100px;
-            height: 50px;
-            background: linear-gradient(to bottom, #87ceeb, #4682b4);
-            margin: 5px auto;
-            border-radius: 50%;
-            position: relative;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .mop-head::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: linear-gradient(to bottom, rgba(135, 206, 235, 0.7), transparent);
+            display: none;
         }
 
         /* SUPER SOAKER ICON */
         .soaker-icon {
             /* REPLACE: Super soaker icon with your soaker sprite */
             width: 180px;
-            height: 120px;
+            height: 180px;
             position: relative;
-            /* To replace with image, add: background-image: url('soaker-icon.png'); */
-            /* background-size: contain; background-repeat: no-repeat; */
+            background-image: url('super soaker.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .soaker-body {
-            width: 120px;
-            height: 60px;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
-            border-radius: 30px;
-            position: relative;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .soaker-nozzle {
-            width: 60px;
-            height: 20px;
-            background: linear-gradient(to right, #c44569, #8b3a62);
-            position: absolute;
-            right: -50px;
-            top: 20px;
-            border-radius: 0 10px 10px 0;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         .soaker-handle {
-            width: 40px;
-            height: 40px;
-            border: 5px solid #c44569;
-            border-radius: 0 0 20px 20px;
-            border-top: none;
-            position: absolute;
-            bottom: -35px;
-            left: 40px;
-            /* Hide when using sprite: display: none; */
+            display: none;
         }
 
         /* ========== DRAGON - Replace with your dragon sprite ========== */
@@ -350,15 +335,13 @@
             /* REPLACE: Dragon with your dragon sprite */
             width: 700px;
             height: 500px;
-            background-color: #34a853; /* Placeholder color */
-            background-image: url('dragon.png'); /* Add your dragon asset here */
-            background-size: cover;
+            background-image: url('fire dragon 1.png');
+            background-size: contain;
             background-position: center;
+            background-repeat: no-repeat;
             position: absolute;
             right: 150px;
             top: 200px;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .dragon-fire {
@@ -481,12 +464,12 @@
     <!-- ========== START SCREEN ========== -->
     <div class="screen active" id="start-screen">
         <div class="title">slay the fire dragon!</div> <!-- REPLACE TEXT -->
-        <button onclick="goToScreen('choose-class')">start</button> <!-- REPLACE BUTTON -->
+        <button class="start-btn" onclick="goToScreen('choose-class')">start</button> <!-- REPLACE BUTTON -->
     </div>
 
     <!-- ========== CHOOSE CLASS SCREEN ========== -->
     <div class="screen" id="choose-class">
-        <div class="mission-title">1) Choose your class</div> <!-- REPLACE TEXT -->
+        <div class="mission-title mission-1">1) Choose your class</div> <!-- REPLACE TEXT -->
         <!-- REPLACE STICK FIGURE with character sprite -->
         <div class="stick-figure">
             <div class="stick-head"></div>
@@ -507,7 +490,7 @@
                         <div class="sword-handle"></div>
                     </div>
                 </div>
-                <div class="choice-label">melee</div> <!-- REPLACE TEXT -->
+                <div class="choice-label melee-label">melee</div> <!-- REPLACE TEXT -->
             </div>
             <!-- REPLACE BOW ICON -->
             <div class="choice" onclick="chooseClass('ranger')">
@@ -517,14 +500,14 @@
                         <div class="bow-string"></div>
                     </div>
                 </div>
-                <div class="choice-label">ranger</div> <!-- REPLACE TEXT -->
+                <div class="choice-label ranger-label">ranger</div> <!-- REPLACE TEXT -->
             </div>
         </div>
     </div>
 
     <!-- ========== CHOOSE WEAPON - MELEE ========== -->
     <div class="screen" id="choose-weapon-melee">
-        <div class="mission-title">2) Choose your weapon</div> <!-- REPLACE TEXT -->
+        <div class="mission-title mission-2">2) Choose your weapon</div> <!-- REPLACE TEXT -->
         <div class="choices">
             <!-- REPLACE SWORD ICON -->
             <div class="choice" onclick="chooseWeapon('sword')">
@@ -552,7 +535,7 @@
 
     <!-- ========== CHOOSE WEAPON - RANGER ========== -->
     <div class="screen" id="choose-weapon-ranger">
-        <div class="mission-title">2) Choose your weapon</div> <!-- REPLACE TEXT -->
+        <div class="mission-title mission-2">2) Choose your weapon</div> <!-- REPLACE TEXT -->
         <div class="choices">
             <!-- REPLACE SUPER SOAKER ICON -->
             <div class="choice" onclick="chooseWeapon('super-soaker')">
@@ -580,9 +563,9 @@
 
     <!-- ========== BEFORE DRAGON FIGHT ========== -->
     <div class="screen" id="before-fight">
-        <div class="mission-title">mission 3</div> <!-- REPLACE TEXT -->
+        <div class="mission-title mission-3">mission 3</div> <!-- REPLACE TEXT -->
         <div class="mission-btn-container">
-            <button onclick="startFight()">lets gooooooo!!!!</button> <!-- REPLACE BUTTON -->
+            <button class="start-fight-btn" onclick="startFight()">lets gooooooo!!!!</button> <!-- REPLACE BUTTON -->
         </div>
     </div>
 
