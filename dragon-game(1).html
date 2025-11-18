@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slay the Fire Dragon!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 1920px;
+            height: 100vh;
+            max-height: 1080px;
+            position: relative;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ========== TEXT ELEMENTS - Replace with images ========== */
+        .title {
+            /* REPLACE: Main title "slay the fire dragon!" */
+            font-size: 80px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 100px;
+            color: #2c3e50;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            /* To replace with image, add: background-image: url('title.png'); */
+            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+        }
+
+        .mission-title {
+            /* REPLACE: Mission titles like "1) Choose your class" */
+            font-size: 64px;
+            font-weight: bold;
+            position: absolute;
+            top: 50px;
+            left: 60px;
+            color: #2c3e50;
+            /* To replace with image, add: background-image: url('mission-title.png'); */
+            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+        }
+
+        /* ========== BUTTONS - Replace with images ========== */
+        button {
+            /* REPLACE: All buttons (start, attack buttons, play again, try again) */
+            background: white;
+            border: 4px solid #34495e;
+            border-radius: 8px;
+            padding: 25px 80px;
+            font-size: 48px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            /* To replace with image, add: background-image: url('button.png'); */
+            /* background-size: contain; text-indent: -9999px; */
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: #ecf0f1;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .choices {
+            display: flex;
+            gap: 400px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 150px;
+        }
+
+        .choice {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .choice:hover {
+            transform: scale(1.1);
+        }
+
+        .choice-icon {
+            width: 200px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .choice-label {
+            /* REPLACE: Labels like "melee", "ranger", "sword", "bow", etc. */
+            font-size: 48px;
+            font-weight: bold;
+            color: #2c3e50;
+            /* To replace with image, add: background-image: url('label.png'); */
+            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+        }
+
+        /* ========== STICK FIGURE - Replace with your character sprite ========== */
+        .stick-figure {
+            /* REPLACE: Entire stick figure with your character sprite */
+            position: absolute;
+            left: 300px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 85px;
+            height: 218px;
+            /* To replace with image, add: background-image: url('character.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .stick-head {
+            width: 60px;
+            height: 60px;
+            border: 5px solid black;
+            border-radius: 50%;
+            background: white;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .stick-body {
+            width: 5px;
+            height: 120px;
+            background: black;
+            margin: 0 auto;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .stick-arms {
+            width: 80px;
+            height: 5px;
+            background: black;
+            margin: -60px auto 0;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .stick-legs {
+            display: flex;
+            justify-content: space-between;
+            width: 60px;
+            margin: 0 auto;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .stick-leg {
+            width: 5px;
+            height: 100px;
+            background: black;
+            transform-origin: top;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .stick-leg.left {
+            transform: rotate(-20deg);
+        }
+
+        .stick-leg.right {
+            transform: rotate(20deg);
+        }
+
+        /* ========== WEAPON ICONS - Replace with your weapon sprites ========== */
+        /* SWORD ICON */
+        .sword-icon {
+            /* REPLACE: Sword icon with your sword sprite */
+            width: 80px;
+            height: 180px;
+            position: relative;
+            /* To replace with image, add: background-image: url('sword-icon.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .sword-blade {
+            width: 20px;
+            height: 140px;
+            background: linear-gradient(to right, #c0c0c0, #e0e0e0);
+            margin: 0 auto;
+            border-radius: 3px 3px 0 0;
+            box-shadow: inset 2px 0 5px rgba(0,0,0,0.2);
+            /* Hide when using sprite: display: none; */
+        }
+
+        .sword-handle {
+            width: 50px;
+            height: 15px;
+            background: #8b4513;
+            margin: 0 auto;
+            border-radius: 3px;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .sword-guard {
+            width: 70px;
+            height: 8px;
+            background: #daa520;
+            margin: 5px auto;
+            /* Hide when using sprite: display: none; */
+        }
+
+        /* BOW ICON */
+        .bow-icon {
+            /* REPLACE: Bow icon with your bow sprite */
+            width: 120px;
+            height: 180px;
+            position: relative;
+            /* To replace with image, add: background-image: url('bow-icon.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .bow-curve {
+            width: 80px;
+            height: 150px;
+            border: 5px solid #8b4513;
+            border-right: none;
+            border-radius: 50% 0 0 50%;
+            margin: 0 auto;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .bow-string {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            height: 130px;
+            width: 2px;
+            background: #666;
+            /* Hide when using sprite: display: none; */
+        }
+
+        /* MOP ICON */
+        .mop-icon {
+            /* REPLACE: Mop icon with your mop sprite */
+            width: 120px;
+            height: 200px;
+            position: relative;
+            /* To replace with image, add: background-image: url('mop-icon.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .mop-handle {
+            width: 8px;
+            height: 150px;
+            background: #8b4513;
+            margin: 0 auto;
+            border-radius: 4px;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .mop-head {
+            width: 100px;
+            height: 50px;
+            background: linear-gradient(to bottom, #87ceeb, #4682b4);
+            margin: 5px auto;
+            border-radius: 50%;
+            position: relative;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .mop-head::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(135, 206, 235, 0.7), transparent);
+        }
+
+        /* SUPER SOAKER ICON */
+        .soaker-icon {
+            /* REPLACE: Super soaker icon with your soaker sprite */
+            width: 180px;
+            height: 120px;
+            position: relative;
+            /* To replace with image, add: background-image: url('soaker-icon.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .soaker-body {
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 30px;
+            position: relative;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .soaker-nozzle {
+            width: 60px;
+            height: 20px;
+            background: linear-gradient(to right, #c44569, #8b3a62);
+            position: absolute;
+            right: -50px;
+            top: 20px;
+            border-radius: 0 10px 10px 0;
+            /* Hide when using sprite: display: none; */
+        }
+
+        .soaker-handle {
+            width: 40px;
+            height: 40px;
+            border: 5px solid #c44569;
+            border-radius: 0 0 20px 20px;
+            border-top: none;
+            position: absolute;
+            bottom: -35px;
+            left: 40px;
+            /* Hide when using sprite: display: none; */
+        }
+
+        /* ========== DRAGON - Replace with your dragon sprite ========== */
+        .dragon {
+            /* REPLACE: Dragon with your dragon sprite */
+            width: 700px;
+            height: 500px;
+            background-color: #34a853; /* Placeholder color */
+            background-image: url('dragon.png'); /* Add your dragon asset here */
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            right: 150px;
+            top: 200px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .dragon-fire {
+            /* REPLACE: Fire emoji with fire sprite */
+            position: absolute;
+            right: 200px;
+            top: 250px;
+            font-size: 100px;
+            animation: flicker 0.5s infinite;
+            /* To replace with image, add: background-image: url('fire.png'); */
+            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .attacks-container {
+            position: absolute;
+            left: 180px;
+            top: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .attack-btn {
+            /* REPLACE: Attack buttons with button sprites */
+            padding: 20px 50px;
+            font-size: 36px;
+            min-width: 350px;
+        }
+
+        .result-screen {
+            text-align: center;
+        }
+
+        .result-title {
+            /* REPLACE: "you win!" and "you lose" text with images */
+            font-size: 100px;
+            margin-bottom: 100px;
+            font-weight: bold;
+            /* To replace with image, add: background-image: url('win-title.png'); */
+            /* width: XXXpx; height: XXXpx; text-indent: -9999px; */
+        }
+
+        .win .result-title {
+            color: #27ae60;
+            text-shadow: 3px 3px 0px rgba(39, 174, 96, 0.3);
+        }
+
+        .lose .result-title {
+            color: #e74c3c;
+            text-shadow: 3px 3px 0px rgba(231, 76, 60, 0.3);
+        }
+
+        /* ========== ASHES - Replace with your ashes sprite ========== */
+        .ashes {
+            /* REPLACE: Ashes element with your ashes sprite */
+            width: 200px;
+            height: 80px;
+            background: #7f8c8d;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px auto;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+            /* To replace with image, add: background-image: url('ashes.png'); */
+            /* background-size: contain; background-repeat: no-repeat; */
+        }
+
+        .ashes::before {
+            content: '💀';
+            font-size: 60px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Hide when using sprite: content: ''; */
+        }
+
+        .battle-animation {
+            position: absolute;
+            font-size: 80px;
+            animation: attackMove 1s ease-out;
+        }
+
+        @keyframes attackMove {
+            0% { left: 300px; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 800px; opacity: 0; }
+        }
+
+        @keyframes dragonShake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-10px, -10px); }
+            75% { transform: translate(10px, 10px); }
+        }
+
+        .dragon.hit {
+            animation: dragonShake 0.3s;
+        }
+
+        .mission-btn-container {
+            position: absolute;
+            bottom: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Weapon display on fight screen */
+        .player-weapon {
+            position: absolute;
+            left: 400px;
+            top: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== START SCREEN ========== -->
+    <div class="screen active" id="start-screen">
+        <div class="title">slay the fire dragon!</div> <!-- REPLACE TEXT -->
+        <button onclick="goToScreen('choose-class')">start</button> <!-- REPLACE BUTTON -->
+    </div>
+
+    <!-- ========== CHOOSE CLASS SCREEN ========== -->
+    <div class="screen" id="choose-class">
+        <div class="mission-title">1) Choose your class</div> <!-- REPLACE TEXT -->
+        <!-- REPLACE STICK FIGURE with character sprite -->
+        <div class="stick-figure">
+            <div class="stick-head"></div>
+            <div class="stick-body"></div>
+            <div class="stick-arms"></div>
+            <div class="stick-legs">
+                <div class="stick-leg left"></div>
+                <div class="stick-leg right"></div>
+            </div>
+        </div>
+        <div class="choices">
+            <!-- REPLACE SWORD ICON -->
+            <div class="choice" onclick="chooseClass('melee')">
+                <div class="choice-icon">
+                    <div class="sword-icon">
+                        <div class="sword-blade"></div>
+                        <div class="sword-guard"></div>
+                        <div class="sword-handle"></div>
+                    </div>
+                </div>
+                <div class="choice-label">melee</div> <!-- REPLACE TEXT -->
+            </div>
+            <!-- REPLACE BOW ICON -->
+            <div class="choice" onclick="chooseClass('ranger')">
+                <div class="choice-icon">
+                    <div class="bow-icon">
+                        <div class="bow-curve"></div>
+                        <div class="bow-string"></div>
+                    </div>
+                </div>
+                <div class="choice-label">ranger</div> <!-- REPLACE TEXT -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CHOOSE WEAPON - MELEE ========== -->
+    <div class="screen" id="choose-weapon-melee">
+        <div class="mission-title">2) Choose your weapon</div> <!-- REPLACE TEXT -->
+        <div class="choices">
+            <!-- REPLACE SWORD ICON -->
+            <div class="choice" onclick="chooseWeapon('sword')">
+                <div class="choice-icon">
+                    <div class="sword-icon">
+                        <div class="sword-blade"></div>
+                        <div class="sword-guard"></div>
+                        <div class="sword-handle"></div>
+                    </div>
+                </div>
+                <div class="choice-label">sword</div> <!-- REPLACE TEXT -->
+            </div>
+            <!-- REPLACE MOP ICON -->
+            <div class="choice" onclick="chooseWeapon('wet-mop')">
+                <div class="choice-icon">
+                    <div class="mop-icon">
+                        <div class="mop-handle"></div>
+                        <div class="mop-head"></div>
+                    </div>
+                </div>
+                <div class="choice-label">wet mop</div> <!-- REPLACE TEXT -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CHOOSE WEAPON - RANGER ========== -->
+    <div class="screen" id="choose-weapon-ranger">
+        <div class="mission-title">2) Choose your weapon</div> <!-- REPLACE TEXT -->
+        <div class="choices">
+            <!-- REPLACE SUPER SOAKER ICON -->
+            <div class="choice" onclick="chooseWeapon('super-soaker')">
+                <div class="choice-icon">
+                    <div class="soaker-icon">
+                        <div class="soaker-body"></div>
+                        <div class="soaker-nozzle"></div>
+                        <div class="soaker-handle"></div>
+                    </div>
+                </div>
+                <div class="choice-label">super soaker</div> <!-- REPLACE TEXT -->
+            </div>
+            <!-- REPLACE BOW ICON -->
+            <div class="choice" onclick="chooseWeapon('bow')">
+                <div class="choice-icon">
+                    <div class="bow-icon">
+                        <div class="bow-curve"></div>
+                        <div class="bow-string"></div>
+                    </div>
+                </div>
+                <div class="choice-label">bow</div> <!-- REPLACE TEXT -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BEFORE DRAGON FIGHT ========== -->
+    <div class="screen" id="before-fight">
+        <div class="mission-title">mission 3</div> <!-- REPLACE TEXT -->
+        <div class="mission-btn-container">
+            <button onclick="startFight()">lets gooooooo!!!!</button> <!-- REPLACE BUTTON -->
+        </div>
+    </div>
+
+    <!-- ========== DRAGON FIGHT ========== -->
+    <div class="screen" id="dragon-fight">
+        <div class="dragon" id="dragon"></div> <!-- REPLACE DRAGON -->
+        <div class="dragon-fire">🔥</div> <!-- REPLACE FIRE -->
+        <!-- REPLACE STICK FIGURE -->
+        <div class="stick-figure">
+            <div class="stick-head"></div>
+            <div class="stick-body"></div>
+            <div class="stick-arms"></div>
+            <div class="stick-legs">
+                <div class="stick-leg left"></div>
+                <div class="stick-leg right"></div>
+            </div>
+        </div>
+        <div class="attacks-container" id="attacks-container"></div> <!-- REPLACE ATTACK BUTTONS -->
+    </div>
+
+    <!-- ========== WIN SCREEN ========== -->
+    <div class="screen result-screen win" id="win-screen">
+        <div class="result-title">you win!</div> <!-- REPLACE TEXT -->
+        <!-- REPLACE STICK FIGURE -->
+        <div class="stick-figure">
+            <div class="stick-head"></div>
+            <div class="stick-body"></div>
+            <div class="stick-arms"></div>
+            <div class="stick-legs">
+                <div class="stick-leg left"></div>
+                <div class="stick-leg right"></div>
+            </div>
+        </div>
+        <button onclick="restartGame()" style="margin-top: 100px;">play again</button> <!-- REPLACE BUTTON -->
+    </div>
+
+    <!-- ========== LOSE SCREEN ========== -->
+    <div class="screen result-screen lose" id="lose-screen">
+        <div class="result-title">you lose</div> <!-- REPLACE TEXT -->
+        <div class="ashes"></div> <!-- REPLACE ASHES -->
+        <button onclick="restartGame()" style="margin-top: 50px;">try again</button> <!-- REPLACE BUTTON -->
+    </div>
+
+    <script>
+        let gameState = {
+            class: null,
+            weapon: null
+        };
+
+        function goToScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function chooseClass(classType) {
+            gameState.class = classType;
+            if (classType === 'melee') {
+                goToScreen('choose-weapon-melee');
+            } else {
+                goToScreen('choose-weapon-ranger');
+            }
+        }
+
+        function chooseWeapon(weapon) {
+            gameState.weapon = weapon;
+            goToScreen('before-fight');
+        }
+
+        function startFight() {
+            setupFightScreen();
+            goToScreen('dragon-fight');
+        }
+
+        function setupFightScreen() {
+            const container = document.getElementById('attacks-container');
+            container.innerHTML = '';
+
+            if (gameState.class === 'melee') {
+                if (gameState.weapon === 'sword') {
+                    container.innerHTML = `
+                        <button class="attack-btn" onclick="attack('sword-strike')">sword strike</button>
+                        <button class="attack-btn" onclick="attack('hungry')">im hungry</button>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <button class="attack-btn" onclick="attack('mop-whack')">mop whack</button>
+                        <button class="attack-btn" onclick="attack('clean-floor')">cleaning the floor</button>
+                    `;
+                }
+            } else {
+                if (gameState.weapon === 'bow') {
+                    container.innerHTML = `
+                        <button class="attack-btn" onclick="attack('arrow-strike')">arrow strike</button>
+                        <button class="attack-btn" onclick="attack('melee-mode')">melee mode</button>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <button class="attack-btn" onclick="attack('pew-pew')">pew pew</button>
+                        <button class="attack-btn" onclick="attack('boomerang')">it looks like a boomerang</button>
+                    `;
+                }
+            }
+        }
+
+        function attack(attackType) {
+            // Determine if attack hits
+            const goodAttacks = ['sword-strike', 'mop-whack', 'arrow-strike', 'pew-pew'];
+            const isGoodAttack = goodAttacks.includes(attackType);
+
+            if (isGoodAttack) {
+                showAttackAnimation('💥');
+                shakeDragon();
+                setTimeout(() => {
+                    goToScreen('win-screen');
+                }, 1000);
+            } else {
+                showAttackAnimation('💔');
+                setTimeout(() => {
+                    goToScreen('lose-screen');
+                }, 1000);
+            }
+        }
+
+        function showAttackAnimation(emoji) {
+            const animation = document.createElement('div');
+            animation.className = 'battle-animation';
+            animation.textContent = emoji;
+            document.getElementById('dragon-fight').appendChild(animation);
+            
+            setTimeout(() => {
+                animation.remove();
+            }, 1000);
+        }
+
+        function shakeDragon() {
+            const dragon = document.getElementById('dragon');
+            dragon.classList.add('hit');
+            setTimeout(() => {
+                dragon.classList.remove('hit');
+            }, 300);
+        }
+
+        function restartGame() {
+            gameState = {
+                class: null,
+                weapon: null
+            };
+            goToScreen('start-screen');
+        }
+    </script>
+</body>
+</html>
